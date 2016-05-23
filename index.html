@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <meta name="Kate by Clarktech" content="">
+    <meta name="clarktech" content="">
+
+    <!-- CSS
+   ================================================== -->
+    <!--link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css"-->
+
+    <link rel="stylesheet" type="text/css" href="static/static.css">
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+</head>
+
+<body onLoad="date()">
+
+   <div id="content-wrap">
+
+      <!-- Header
+      ================================================== -->
+      <header class="container">
+
+         <hgroup>
+            <h1><a href="index.html">Clarktech</a></h1>
+            <h3>Your Awesome Slogan Here</h3>
+         </hgroup>
+
+
+         <nav id="nav-wrap" class="cf">
+
+            <ul id="menu">
+                <li class="current"><a href="index.html">Home</a></li>
+                <li><a href="">Alarm</a>
+                    <ul>
+                        <li><a href="set.htm">Set</a></li>
+                        <li><a href="view.htm">View</a></li>
+                        <li><a href="delete.htm">Delete</a></li>
+                    </ul>
+                </li>
+                <li><a href="temperature.htm">Temperature</a></li>
+                <li><a href="settings.htm">Settings</a></li>
+
+            </ul> <!-- end #menu -->
+
+         </nav>
+
+      </header>
+
+      <!-- latest article
+      ================================================== -->
+      <article id="latest-article" class="container">
+
+         <h2>Kate</h2>
+         <p class="post-info">by <span>Robert Clark and Vivian Choong</span> &nbsp;
+         </p>
+
+         <div class="dcontent cf">
+            <h3>Welcome Home</h3>
+            <p>Welcome to Kate, your home automation personal assistant. Kate takes the relevant information
+                from your home and places it conveniently at your fingertips. Through Kate, you can add and remove
+                alarms for the Smart Alarm Clock as well as view current and historical temperature and humidity
+                in the house.</p>
+
+            <div class="post-meta">
+            <label id="dayText" class="dateinfo">1</label>
+                <p class="dateinfo">
+                    <label id="monthText" class="dmonth">Mar</label>
+                    <span id="yearText" class="dyear">2015</span>
+                </p>
+
+            </div>
+
+         </div>
+
+      </article>
+
+      <!-- more articles
+      ================================================== -->
+      <div id="more-articles" class="container">
+
+         <article class="cf">
+
+            <div class="grid4 a-left first">
+               <h3>Next Alarm</h3>
+            </div>
+
+            <div class="grid8 a-right">
+                <h4 id="nextAlarm">Loading...</h4>
+               <!--<p>Alarm Time Here </p>-->
+            </div>
+
+         </article>
+
+         <article class="cf">
+
+            <div class="grid4 a-left first">
+               <h3>Temp / Humidity</h3>
+            </div>
+
+            <div class="grid8 a-right">
+                <h4 id="temperature">Loading...</h4>
+            </div>
+
+         </article>
+
+      </div>
+
+   </div> <!-- end content-wrap -->
+
+   <!-- footer
+   ================================================== -->
+   <footer class="container">
+
+      <!-- footer-bottom
+      ================================================== -->
+      <div id="footer-bottom" class="grid12 first">
+
+          <p>
+         2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
+           Design by <a href="http://www.styleshout.com/">styleshout</a>
+         </p>
+
+         <!-- Back To Top Button -->
+         <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+
+      </div>
+
+   </footer>
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+
+   <script src="js/custom.js"></script>
+
+   <script type="text/javascript">
+        var months = new Array();
+        months[0] = "JAN";
+        months[1] = "FEB";
+        months[2] = "MAR";
+        months[3] = "APR";
+        months[4] = "MAY";
+        months[5] = "JUN";
+        months[6] = "JUL";
+        months[7] = "AUG";
+        months[8] = "SEP";
+        months[9] = "OCT";
+        months[10] = "NOV";
+        months[11] = "DEC";
+
+        function date()
+        {
+            var today = new Date();
+            var day = today.getDate();
+            var year = today.getUTCFullYear();
+            var month = today.getMonth();
+            var monthString = months[month];
+
+            document.getElementById('monthText').innerHTML = monthString;
+            document.getElementById('yearText').innerHTML = year;
+            document.getElementById('dayText').innerHTML = day;
+
+            load_alarms();
+        }
+
+        function load_alarms()
+        {
+            $.ajax({
+                method: "POST",
+                url: "nextalarm.php",
+            })
+            .done(function( msg ) {
+                document.getElementById('nextAlarm').innerHTML = msg;
+            });
+            get_temp();
+        } 
+
+        function get_temp()
+        {
+            $.ajax({
+                method: "POST",
+                url: "viewtemps.php"
+            })
+            .done(function( msg ) {
+                list_out = msg.split(" ");
+                temp = list_out[1];
+                hum = list_out[5].split("\n");
+                temp = temp.replace("F", "\u00B0F");
+
+                document.getElementById('temperature').innerHTML = temp + " / " + hum[0];
+            });
+        }
+   </script>
+
+</body>
+
+</html>

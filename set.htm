@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+    <!--- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Clarktech</title>
+    <meta name="Set times for Raspberry Pi Smart Alarm Clock" content="">
+    <meta name="clarktech" content="">
+
+    <!-- CSS
+    ================================================== -->
+    <!--link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css"-->
+
+    <link rel="stylesheet" type="text/css" href="static/static.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+</head>
+
+<body onLoad="date()">
+
+    <div id="content-wrap">
+
+        <!-- Header
+        ================================================== -->
+        <header class="container">
+
+            <hgroup>
+                <h1><a href="index.html">Clarktech</a></h1>
+                <h3>Your Awesome Slogan Here</h3>
+            </hgroup>
+
+
+            <nav id="nav-wrap" class="cf">
+
+            <ul id="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Alarm</a>
+                    <ul>
+                        <li class="current"><a href="set.htm">Set</a></li>
+                        <li><a href="view.htm">View</a></li>
+                        <li><a href="delete.htm">Delete</a></li>
+                    </ul>
+                </li>
+                <li><a href="temperature.htm">Temperature</a></li>
+                <li><a href="settings.htm">Settings</a></li>
+          
+            </ul> <!-- end #menu -->
+
+            </nav>
+
+        </header>
+
+        <!-- latest article
+        ================================================== -->
+        <!--article id="latest-article" class="container"-->
+        <div id="content" class="container">
+            <div id="title-section">
+                <h2>Set New Alarms</h2>
+                <p>Enter a time for the alarm to trigger below and select the days
+                   of the week for it to repeat.</p>
+            </div>
+
+        <!-- more articles
+        ================================================== -->
+        <div id="more-articles" class="container">
+
+            <div class="grid4 a-left first">
+                <h3>Time</h3>
+            </div>
+
+            <div class="grid8 a-right">
+                <input type="time" id="alarmtime" name="alarmtime" style="width: 139px"/>
+                <select id="ampm" style="width: 139px">
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>
+                </select>
+            </div>
+
+         <article class="cf">
+
+            <div class="grid4 a-left first">
+               <h3>Repeat</h3>
+            </div>
+
+            <div class="grid8 a-right">
+
+                <input type="checkbox" id="monday" name="monday" value="monday"> Monday
+                <input type="checkbox" id="tuesday" name="tuesday" value="tuesday"> Tuesday
+                <input type="checkbox" id="wednesday" name="wednesday" value="wednesday"> Wednesday
+                <input type="checkbox" id="thursday" name="thursday" value="thursday"> Thursday <br>
+                <input type="checkbox" id="friday" name="friday" value="friday"> Friday
+                <input type="checkbox" id="saturday" name="saturday" value="saturday"> Saturday
+                <input type="checkbox" id="sunday" name="sunday" value="sunday"> Sunday
+            </div>
+
+         </article>
+
+         <article class="cf">
+             <div class="grid4 a-left first">
+                 <h3><a href="#"></a></h3>
+             </div>
+
+             <div class="grid8 a-right">
+             <form method="post"> </form>
+                 <button id="submitButton" type="submit" onclick="message()">SET</button>
+             </div>
+         </article>
+
+      </div>
+
+   </div> <!-- end content-wrap -->
+   </div>
+
+   <!-- footer
+   ================================================== -->
+   <footer class="container">
+
+      <!-- footer-bottom
+      ================================================== -->
+      <div id="footer-bottom" class="grid12 first">
+
+          <p>
+         2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
+           Design by <a href="http://www.styleshout.com/">styleshout</a>
+         </p>
+
+         <!-- Back To Top Button -->
+         <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+
+      </div>
+
+   </footer>
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+
+   <script src="js/custom.js"></script>
+
+    <script type="text/javascript">
+    var package = null;
+    var months = new Array();
+    months[0] = "JAN";
+    months[1] = "FEB";
+    months[2] = "MAR";
+    months[3] = "APR";
+    months[4] = "MAY";
+    months[5] = "JUN";
+    months[6] = "JUL";
+    months[7] = "AUG";
+    months[8] = "SEP";
+    months[9] = "OCT";
+    months[10] = "NOV";
+    months[11] = "DEC";
+
+    function date()
+    {
+        var today = new Date();
+        var day = today.getDate();
+        var year = today.getUTCFullYear();
+        var month = today.getMonth();
+        var monthString = months[month];
+
+        document.getElementById('monthText').innerHTML = monthString;
+        document.getElementById('yearText').innerHTML = year;
+        document.getElementById('dayText').innerHTML = day;
+    }
+
+    function message()
+    {
+        var checked = false;
+        var message = "";
+        var list = "";
+        var ampm = "am";
+        var new_hour = 0;
+
+        var res = document.getElementById('ampm').value;
+
+        if (monday.checked == true)
+        {
+            message += "Monday ";
+            checked = true;
+            list += "1";
+        }
+        if (tuesday.checked == true)
+        {
+            message += "Tuesday ";
+            checked = true;
+            list += ",2";
+        }
+        if (wednesday.checked == true)
+        {
+            message += "Wednesday ";
+            checked = true;
+            list += ",3";
+        }
+        if (thursday.checked == true)
+        {
+            message += "Thursday ";
+            checked = true;
+            list += ",4";
+        }
+        if (friday.checked == true)
+        {
+            message += "Friday ";
+            checked = true;
+            list += ",5";
+        }
+        if (saturday.checked == true)
+        {
+            message += "Saturday ";
+            checked = true;
+            list += ",6";
+        }
+        if (sunday.checked == true)
+        {
+            message += "Sunday ";
+            checked = true;
+            list += ",0";
+        }
+
+        var time = document.getElementById('alarmtime').value;
+
+        if (time.length < 4 || time.length > 5)
+        {
+            alert("Invalid time: Expected HH:MM");
+            return;
+        }
+
+        var colon = time.indexOf(':');
+
+        if (colon < 0)
+        {
+            alert("Invalid time: Missing a colon");
+            return;
+        }
+           
+        if (colon > 2 || colon < 1)
+        {
+            alert("Invalid time: Hour must be 1 or 2 digits");
+            return;
+        }
+
+        var hour = (time.substring(0, colon));
+        new_hour = hour
+        var minute = time.substring(colon+1);
+                        
+        if (isNaN(hour) == true || isNaN(minute))
+        {
+            alert("Invalid time: Time must be integers");
+            return;
+        }
+
+        if (hour < 1 || hour > 12)
+        {
+            alert("Invalid time: Hour must be in range of (1-12)");
+            return;
+        }
+
+        if (minute < 0 || minute > 59)
+        {
+            alert("Invalid time: Minute must be in range of (0-59)");
+            return;
+        }
+
+        if (res == "pm")
+        {
+            ampm = "pm";
+            if (hour != 12)
+            {
+                new_hour = +hour + 12;
+            }
+        }
+
+        if (list[0] == ',')
+        {
+            list = list.substring(1);
+        }
+
+        if (checked == true)
+        {
+            package = new_hour + " " + minute + " " + list;
+       
+            $.ajax({
+                method: "POST",
+                url: "setalarm.php",
+                data: { package: package }
+            })
+                .done(function( msg ) {
+                alert("Alarm set for " + hour + ":" + minute + " " + ampm + " on " + message);
+            });
+        }
+    }
+
+   </script>
+
+</body>
+
+</html>
