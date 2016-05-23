@@ -187,49 +187,27 @@
         var ampm = "am";
         var new_hour = 0;
 
+        var checkboxes = new Array();
+        checkboxes[0] = "monday";
+        checkboxes[1] = "tuesday";
+        checkboxes[2] = "wednesday";
+        checkboxes[3] = "thursday";
+        checkboxes[4] = "friday";
+        checkboxes[5] = "saturday";
+        checkboxes[6] = "sunday";
+
         var res = document.getElementById('ampm').value;
 
-        if (monday.checked == true)
+        for (var i = 0; i < 7; i++)
         {
-            message += "Monday ";
-            checked = true;
-            list += "1";
-        }
-        if (tuesday.checked == true)
-        {
-            message += "Tuesday ";
-            checked = true;
-            list += ",2";
-        }
-        if (wednesday.checked == true)
-        {
-            message += "Wednesday ";
-            checked = true;
-            list += ",3";
-        }
-        if (thursday.checked == true)
-        {
-            message += "Thursday ";
-            checked = true;
-            list += ",4";
-        }
-        if (friday.checked == true)
-        {
-            message += "Friday ";
-            checked = true;
-            list += ",5";
-        }
-        if (saturday.checked == true)
-        {
-            message += "Saturday ";
-            checked = true;
-            list += ",6";
-        }
-        if (sunday.checked == true)
-        {
-            message += "Sunday ";
-            checked = true;
-            list += ",0";
+            checkbox = document.getElementById(checkboxes[i]);
+
+            if (checkbox.checked == true)
+            {
+                message += checkboxes[i].charAt(0).toUpperCase() + checkboxes[i].slice(1) + " ";
+                checked = true;
+                list += "," + (i+1);
+            }
         }
 
         var time = document.getElementById('alarmtime').value;
@@ -255,7 +233,6 @@
         }
 
         var hour = (time.substring(0, colon));
-        new_hour = hour
         var minute = time.substring(colon+1);
                         
         if (isNaN(hour) == true || isNaN(minute))
@@ -281,7 +258,7 @@
             ampm = "pm";
             if (hour != 12)
             {
-                new_hour = +hour + 12;
+                hour = hour + 12;
             }
         }
 
@@ -292,7 +269,7 @@
 
         if (checked == true)
         {
-            package = new_hour + " " + minute + " " + list;
+            package = hour + " " + minute + " " + list;
        
             $.ajax({
                 method: "POST",
