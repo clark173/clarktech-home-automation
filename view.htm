@@ -4,143 +4,121 @@
 <!--[if (gte IE 8)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
 
-   <!--- Basic Page Needs
-   ================================================== -->
-	<meta charset="utf-8">
-	<title>View</title>
-	<meta name="description" content="">
-	<meta name="clarktech" content="">
+    <!--- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>View</title>
+    <meta name="description" content="">
+    <meta name="clarktech" content="">
 
-	<!-- CSS
-   ================================================== -->
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/layout.css">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
 
 <body onLoad="loadAlarms()">
+    <div id="content-wrap">
 
-   <div id="content-wrap">
+    <!-- Header
+    ================================================== -->
+        <header class="container">
 
-      <!-- Header
-      ================================================== -->
-      <header class="container">
-
-         <hgroup>
-            <h1><a href="index.html">Freshpick</a></h1>
-            <h3>Your Awesome Slogan Here</h3>
-         </hgroup>
-
-
-         <nav id="nav-wrap" class="cf">
-
-            <ul id="menu">
-	            <li><a href="index.html">Home</a></li>
-                <li><a href="">Alarm</a>
-                    <ul>
-                        <li><a href="set.htm">Set</a></li>
-        	            <li class="current"><a href="view.htm">View</a></li>
-        		        <li><a href="delete.htm">Delete</a></li>
-                    </ul>
-                </li>
-		        <li><a href="temperature.htm">Temperature</a></li>
-                <li><a href="settings.htm">Settings</a></li>
-	           
-            </ul> <!-- end #menu -->
-
-         </nav>
-
-      </header>
-
-       <!-- content
-      ================================================== -->
-      <div id="content" class="container">
-
-         <div id="title-section">
-
-            <h2>View Current Alarms</h2>
-            <p>Below is a list of all of the current alarms that are set.</p>
-
-         </div>
-
-     <h2>Alarms List</h2>
-
-	 <div id="alarms">
-	   <ul style="list-style-type:none">
-	      <li><h4 id="alarm1Text">Loading...</li>
-	   </ul>
-
-	 </div>
-
-    <h2>Next Alarm</h2>
-        <h4 id="nextAlarm">Loading...</h4>
-
-      </div>
-
-   </div> <!-- end content-wrap -->
+            <hgroup>
+                <h1><a href="index.html">Freshpick</a></h1>
+                <h3>Your Awesome Slogan Here</h3>
+            </hgroup>
 
 
-   <!-- footer
-   ================================================== -->
-   <footer class="container">
+            <nav id="nav-wrap" class="cf">
 
-      <!-- footer-bottom
-      ================================================== -->
-      <div id="footer-bottom" class="grid12 first">
+                <ul id="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="">Alarm</a>
+                        <ul>
+                            <li><a href="set.htm">Set</a></li>
+                            <li class="current"><a href="view.htm">View</a></li>
+                            <li><a href="delete.htm">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="temperature.htm">Temperature</a></li>
+                </ul> <!-- end #menu -->
 
-	    <p>
-         2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
-		   Design by <a href="http://www.styleshout.com/">styleshout</a>
-        </p>
+            </nav>
+        </header>
 
-         <!-- Back To Top Button -->
-         <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+        <!-- content
+        ================================================== -->
+        <div id="content" class="container">
+            <div id="title-section">
+                <h2>View Current Alarms</h2>
+                <p>Below is a list of all of the current alarms that are set.</p>
+            </div>
+            <h2>Alarms List</h2>
 
-      </div>
+            <div id="alarms">
+                <ul style="list-style-type:none">
+                    <li><h4 id="alarm1Text">Loading...</li>
+                </ul>
+            </div>
 
-   </footer>
+            <h2>Next Alarm</h2>
+            <h4 id="nextAlarm">Loading...</h4>
+        </div>
+    </div> <!-- end content-wrap -->
 
-   <!-- Java Script
-   ================================================== -->
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+    <!-- footer
+    ================================================== -->
+    <footer class="container">
+        <!-- footer-bottom
+        ================================================== -->
+        <div id="footer-bottom" class="grid12 first">
+            <p>
+                2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
+                 Design by <a href="http://www.styleshout.com/">styleshout</a>
+            </p>
 
-   <script src="js/custom.js"></script>
+            <!-- Back To Top Button -->
+            <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+          </div>
+    </footer>
 
-   <script type="text/javascript">
+    <!-- Java Script
+    ================================================== -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/custom.js"></script>
+    <script type="text/javascript">
      
-     function loadAlarms()
-     {
-       $.ajax({
-         method: "POST",
-         url: "viewalarm.php",
-       })
-       .done(function( msg ) {
-         var output = msg;
-         output = output.replace(/\n/g, "<br />");
-         list = msg.split("\n");
-         var num = list.length - 1;
+    function loadAlarms()
+    {
+        $.ajax({
+            method: "POST",
+            url: "viewalarm.php",
+        })
+        .done(function( msg ) {
+            var output = msg;
+            output = output.replace(/\n/g, "<br />");
+            list = msg.split("\n");
+            var num = list.length - 1;
      
-         document.getElementById('alarm1Text').innerHTML = output;
-       });
+            document.getElementById('alarm1Text').innerHTML = output;
+        });
 
-       $.ajax({
-         method: "POST",
-         url: "nextalarm.php",
-       })
-       .done(function( msg ) {
-         document.getElementById('nextAlarm').innerHTML = msg;
-       });
-     }
-
-   </script>
-
+        $.ajax({
+            method: "POST",
+            url: "nextalarm.php",
+        })
+        .done(function( msg ) {
+            document.getElementById('nextAlarm').innerHTML = msg;
+        });
+    }
+    </script>
 </body>
-
 </html>

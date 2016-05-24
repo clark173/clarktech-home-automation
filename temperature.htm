@@ -4,153 +4,132 @@
 <!--[if (gte IE 8)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
 
-   <!--- Basic Page Needs
-   ================================================== -->
-	<meta charset="utf-8">
-	<title>Temperature</title>
-	<meta name="description" content="">
-	<meta name="clarktech" content="">
+    <!--- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Temperature</title>
+    <meta name="description" content="">
+    <meta name="clarktech" content="">
 
-	<!-- CSS
-   ================================================== -->
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/layout.css">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
 </head>
 
 <body onLoad="loadTemps()">
 
-   <div id="content-wrap">
+    <div id="content-wrap">
 
-      <!-- Header
-      ================================================== -->
-      <header class="container">
+        <!-- Header
+        ================================================== -->
+        <header class="container">
 
-         <hgroup>
-            <h1><a href="index.html">Freshpick</a></h1>
-            <h3>Your Awesome Slogan Here</h3>
-         </hgroup>
-
-
-         <nav id="nav-wrap" class="cf">
-
-            <ul id="menu">
-	            <li><a href="index.html">Home</a></li>
-                <li><a href="">Alarm</a>
-                    <ul>
-                        <li><a href="set.htm">Set</a></li>
-	                    <li><a href="view.htm">View</a></li>
-		                <li><a href="delete.htm">Delete</a></li>
-                    </ul>
-                </li>
-	            <li class="current"><a href="temperature.htm">Temperature</a></li>
-                <li><a href="settings.htm">Settings</a></li>
-
-            </ul> <!-- end #menu -->
-
-         </nav>
-
-      </header>
-
-       <!-- content
-      ================================================== -->
-      <div id="content" class="container">
-
-         <div id="title-section">
-
-            <h2>View Temperature</h2>
-            <p>Below is the current temperature and humidity of the house. Averages, highs and lows are listed for the past 24 hours. Load times may vary.</p>
-
-         </div>
-
-	 <div>
-	   <h2>Current Data:</h2>
-	   <ul style="list-style-type:none">
-	      <li><h4 id="tempText">Loading...</li>
-	      <li><h4 id="humidityText"></li>
-	   </ul>
-
-	   <h2>Past 24 Hours:</h2>
-	   <ul style="list-stype-type:none">
-	      <li><h4 id="avg">Loading...</li>
-	      <li><h4 id="temps"></li>
-	      <li><h4 id="hums"></li>
-	   </ul>
-
-	 </div>
-
-      </div>
-
-   </div> <!-- end content-wrap -->
+            <hgroup>
+                <h1><a href="index.html">Freshpick</a></h1>
+                <h3>Your Awesome Slogan Here</h3>
+            </hgroup>
 
 
-   <!-- footer
-   ================================================== -->
-   <footer class="container">
+            <nav id="nav-wrap" class="cf">
 
-      <!-- footer-bottom
-      ================================================== -->
-      <div id="footer-bottom" class="grid12 first">
+                <ul id="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="">Alarm</a>
+                        <ul>
+                            <li><a href="set.htm">Set</a></li>
+                            <li><a href="view.htm">View</a></li>
+                            <li><a href="delete.htm">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li class="current"><a href="temperature.htm">Temperature</a></li>
+                </ul> <!-- end #menu -->
+            </nav>
+        </header>
 
-	      <p>
-         2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
-		   Design by <a href="http://www.styleshout.com/">styleshout</a>
-         </p>
+        <!-- content
+        ================================================== -->
+        <div id="content" class="container">
+            <div id="title-section">
+                <h2>View Temperature</h2>
+                <p>Below is the current temperature and humidity of the house. Averages, highs and lows are listed for the past 24 hours. Load times may vary.</p>
+            </div>
 
-         <!-- Back To Top Button -->
-         <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+            <div>
+                <h2>Current Data:</h2>
+                <ul style="list-style-type:none">
+                    <li><h4 id="tempText">Loading...</li>
+                    <li><h4 id="humidityText"></li>
+                </ul>
 
-      </div>
+                <h2>Past 24 Hours:</h2>
+                <ul style="list-stype-type:none">
+                    <li><h4 id="avg">Loading...</li>
+                    <li><h4 id="temps"></li>
+                    <li><h4 id="hums"></li>
+                </ul>
+            </div>
+        </div>
+    </div> <!-- end content-wrap -->
 
-   </footer>
+    <!-- footer
+    ================================================== -->
+    <footer class="container">
+        <!-- footer-bottom
+        ================================================== -->
+        <div id="footer-bottom" class="grid12 first">
+            <p>
+           2015 Copyright Robert Clark and Vivian Choong &nbsp; &nbsp; &nbsp;
+		    Design by <a href="http://www.styleshout.com/">styleshout</a>
+            </p>
+            <!-- Back To Top Button -->
+            <div id="go-top"><a href="#" title="Back to Top">Go To Top</a></div>
+        </div>
+    </footer>
 
-   <!-- Java Script
-   ================================================== -->
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-
-   <script src="js/custom.js"></script>
-
-   <script type="text/javascript">
-     
-     function loadTemps()
-     {
-       $.ajax({
-         method: "POST",
-         url: "viewtemps.php",
-       })
-       .done(function( msg ) {
-         var output = msg;
-         list_out = output.split(" ");
-         curhum = list_out[5].split("\n");
+    <!-- Java Script
+    ================================================== -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/custom.js"></script>
+    <script type="text/javascript">
+    
+    function loadTemps()
+    {
+        $.ajax({
+            method: "POST",
+            url: "viewtemps.php",
+        })
+        .done(function( msg ) {
+            var output = msg;
+            list_out = output.split(" ");
+            curhum = list_out[5].split("\n");
          
-         avg_temp = curhum[1];
-         avg_hum = list_out[6];
-         low_temp = list_out[7];
-         high_temp = list_out[8];
-         low_hum = list_out[9];
-         high_hum = list_out[10];
-         high_hum = high_hum.replace("\n", "");
-         high_hum = high_hum.replace("\n", "");
-         list_out[1] = list_out[1].replace("F", "\u00B0F");
+            avg_temp = curhum[1];
+            avg_hum = list_out[6];
+            low_temp = list_out[7];
+            high_temp = list_out[8];
+            low_hum = list_out[9];
+            high_hum = list_out[10];
+            high_hum = high_hum.replace("\n", "");
+            high_hum = high_hum.replace("\n", "");
+            list_out[1] = list_out[1].replace("F", "\u00B0F");
 
-         document.getElementById('tempText').innerHTML = list_out[0] + " " + list_out[1];
-         document.getElementById('humidityText').innerHTML = list_out[4] + " " + curhum[0];
-         document.getElementById('avg').innerHTML = "Average Temp: " + avg_temp + "\u00B0F   Average Humidity: " + avg_hum + "%";
-         document.getElementById('temps').innerHTML = "High / Low Temp: " + high_temp + "\u00B0F / " + low_temp + "\u00B0F";
-         document.getElementById('hums').innerHTML = "High / Low Humidity: " + high_hum + "% / " + low_hum + "%";
-         setInterval("loadTemps()", 15000);
-       });
-     }
-
+            document.getElementById('tempText').innerHTML = list_out[0] + " " + list_out[1];
+            document.getElementById('humidityText').innerHTML = list_out[4] + " " + curhum[0];
+            document.getElementById('avg').innerHTML = "Average Temp: " + avg_temp + "\u00B0F   Average Humidity: " + avg_hum + "%";
+            document.getElementById('temps').innerHTML = "High / Low Temp: " + high_temp + "\u00B0F / " + low_temp + "\u00B0F";
+            document.getElementById('hums').innerHTML = "High / Low Humidity: " + high_hum + "% / " + low_hum + "%";
+            setInterval("loadTemps()", 15000);
+        });
+    }
    </script>
-
 </body>
-
 </html>
