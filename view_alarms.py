@@ -7,17 +7,20 @@
 # calling function.                                     #
 #########################################################
 
+
 from crontab import CronTab
 import datetime
 import time
+
+
+DAY_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+               "Saturday", "Sunday"]
 
 curhour = time.strftime("%H")
 curmin = time.strftime("%M")
 today = datetime.datetime.now()
 dow = today.strftime("%w")
 tomorrow = int(dow) + 1
-
-dayofweek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 cron = CronTab(user="pi")
 set_alarms_am = []
@@ -30,7 +33,7 @@ for job in cron:
     if (job_string[0] is not "#") and (str(job[4]) is not "*"):
         minute = str(job[0])
         hour = str(job[1])
-        ampm = "AM"        
+        ampm = "AM"
 
         if int(hour) > 12:
             hour = str(int(hour) - 12)
@@ -59,7 +62,7 @@ for job in cron:
                     day_vals.append(str(val))
 
             ind += 1
-            
+
         day_ints = map(int, day_vals)
 
         # Get the final output for the alarms that are set
@@ -67,24 +70,24 @@ for job in cron:
 
         if str(job.comment) == 'Once':
             alarmout += " Once"
-        elif day_ints == [1,2,3,4,5]:
+        elif day_ints == [1, 2, 3, 4, 5]:
             alarmout += " Weekdays"
-        elif day_ints == [0,6]:
+        elif day_ints == [0, 6]:
             alarmout += " Weekends"
-        elif day_ints == [0,1,2,3,4,5,6]:
+        elif day_ints == [0, 1, 2, 3, 4, 5, 6]:
             alarmout += " Daily"
         else:
             lcv = 0
             for day in day_ints:
                 lcv += 1
                 if lcv < len(day_ints):
-                    alarmout += " " + dayofweek[day]
+                    alarmout += " " + DAY_OF_WEEK[day]
                 else:
                     if len(day_ints) > 1:
                         alarmout += " and "
-                    alarmout += " " + dayofweek[day]
+                    alarmout += " " + DAY_OF_WEEK[day]
 
-        if ampm == "PM":        
+        if ampm == "PM":
             set_alarms_pm.append(alarmout)
         else:
             set_alarms_am.append(alarmout)

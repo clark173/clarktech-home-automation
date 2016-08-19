@@ -10,17 +10,20 @@
 # python change_alarm.py "[hour] [minute] [day(s)]"                     #
 #########################################################################
 
-path = 'sudo python /home/pi/Alarm/alarm_main.py'
-log = 'logs/change_alarm_log.txt'
 
 from crontab import CronTab
 import sys
 import os
 import time
 
-f = open(log, 'a')
+
+LOG = 'logs/change_alarm_log.txt'
+PATH = 'sudo python /home/pi/Alarm/alarm_main.py'
+
+f = open(LOG, 'a')
 f.write("----------------------------------------\n")
-f.write("[" + time.strftime("%m/%d/%Y") + " - " + time.strftime("%H:%M:%S") + "] Starting change_alarm sequence...\n")
+f.write("[" + time.strftime("%m/%d/%Y") + " - " + time.strftime("%H:%M:%S") +
+        "] Starting change_alarm sequence...\n")
 
 # Make sure there are only 4 inputs, the script and the string
 if (len(sys.argv) != 4):
@@ -29,7 +32,8 @@ if (len(sys.argv) != 4):
     f.write("Exiting script...\n")
     sys.exit(4)
 
-f.write("Input Parameters: " + sys.argv[1] + " " + sys.argv[2] + " " + sys.argv[3] + "\n")
+f.write("Input Parameters: " + sys.argv[1] + " " + sys.argv[2] + " " +
+        sys.argv[3] + "\n")
 
 # Retrieve the input from the webserver
 inp_string = sys.argv[1]
@@ -43,7 +47,7 @@ daylist = map(int, daylist)
 
 # Get the current cron file from the user
 cron = CronTab(user='pi')
-job = cron.new(command=path)
+job = cron.new(command=PATH)
 
 # Add the user's input to a new job
 job.minute.on(minute_in)

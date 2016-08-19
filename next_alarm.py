@@ -7,11 +7,16 @@
 # calling function.                                     #
 #########################################################
 
+
 from crontab import CronTab
 import datetime
 import time
 import re
 import sys
+
+
+DAY_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+               "Saturday", "Sunday"]
 
 curhour = time.strftime("%H")
 curmin = time.strftime("%M")
@@ -19,8 +24,6 @@ today = datetime.datetime.now()
 dow = today.strftime("%w")
 tomorrow = (int(dow) + 1) % 7
 ampm = "AM"
-
-dayofweek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 cron = CronTab(user="pi")
 next_alarms = []
@@ -40,7 +43,7 @@ for job in cron:
             newhour = str(newhour)
         elif int(hour) == 12:
             ampm = "PM"
-        
+
         # Pad zero's as necessary
         if (len(minute) == 1):
             minute = "0" + minute
@@ -62,7 +65,7 @@ for job in cron:
                     day_vals.append(str(val))
 
             ind += 1
-            
+
         day_ints = map(int, day_vals)
 
         min_day = 7
@@ -76,9 +79,9 @@ for job in cron:
                     min_day = val
 
         # If min_day is 7, there are no more alarms set during this week, so wrap to the next week
-        if min_day == 7:        
+        if min_day == 7:
             for val in day_ints:
-                if (val < min_day) and (int(hour) > int(curhour) or (int(hour) == int(curhour) and int(minute) > int(curmin))):
+                if val < min_day and (int(hour) > int(curhour) or (int(hour) == int(curhour) and int(minute) > int(curmin))):
                     min_day = val
 
         next_alarm = "{} {}:{}{}".format(min_day, newhour, minute, ampm)
