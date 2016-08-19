@@ -7,7 +7,7 @@
 # the desired time. The input command is all in a string format.        #
 #                                                                       #
 # NOTE!!! Must be called in the following format:                       #
-# python change_alarm.py "[hour] [minute] [day(s)]"                     #
+# python change_alarm.py [hour] [minute] [day(s)]                       #
 #########################################################################
 
 
@@ -17,46 +17,63 @@ import os
 import time
 
 
+INPUT_ERROR = 4
 LOG = 'logs/change_alarm_log.txt'
 PATH = 'sudo python /home/pi/Alarm/alarm_main.py'
 
-f = open(LOG, 'a')
-f.write("----------------------------------------\n")
-f.write("[" + time.strftime("%m/%d/%Y") + " - " + time.strftime("%H:%M:%S") +
-        "] Starting change_alarm sequence...\n")
 
-# Make sure there are only 4 inputs, the script and the string
-if (len(sys.argv) != 4):
-    f.write("Error: Invalid number of input arguments.\n")
-    f.write("Found: " + str(len(sys.argv)) + " Need 4\n")
-    f.write("Exiting script...\n")
-    sys.exit(4)
+def print_usage():
+    print 'usage: ./change_alarm.py hour minute day(s)'
+    print '    day(s) should be seperated by comma with no spaces'
 
-f.write("Input Parameters: " + sys.argv[1] + " " + sys.argv[2] + " " +
-        sys.argv[3] + "\n")
+def open_log_file():
+    try:
+        f = open(LOG, 'a')
+    except IOError:
+        if not os.path.isdir('logs'):
+            os.makedirs('logs')
+        f = open(LOG, 'w')
 
-# Retrieve the input from the webserver
-inp_string = sys.argv[1]
+    return f
 
-# Retrieve the inputs from the user
-hour_in = sys.argv[1]
-minute_in = sys.argv[2]
-day = sys.argv[3]
-daylist = day.split(',')
-daylist = map(int, daylist)
+def check_inputs(f):
+    f.write('----------------------------------------\n')
+    f.write('[%s - %s] Starting change_alarm sequence...\n'\
+            % (time.strftime('%s/%s/%Y'), time.strftime('%H:%M:%s')))
 
-# Get the current cron file from the user
-cron = CronTab(user='pi')
-job = cron.new(command=PATH)
+    if len(sys.argv) != 4:
+        f.write('Error: Invalid number of input arguments')
+        f.write('Found: %s Need 4' % (len(sys.argv)))
+        f.write('Exiting script...\n')
+        print_usage()
+        sys.exit(INPUT_ERROR)
 
-# Add the user's input to a new job
-job.minute.on(minute_in)
-job.hour.on(hour_in)
-job.dow.on(*daylist)
-job.enable()
+    f.write('Input Parameters: %s %s %s\n' % (sys.argv[1], sys.argv[2],
+                                              sys.argv[3]))
 
-# Write the job to the end of the crontab file
-cron.write()
+def parse_arguments():
+    hour = sys.argv[1]
+    minute = sys.argv[2]
+    day = map(int, sys.argv[3].split(','))
+    return hour, minute, day
 
-f.write("Job added successfully!\n")
-sys.exit(0)
+def set_cronjob(hour, minute, day):
+    cron = CronTab(user = 'pi')
+    job = cron.new(command = PATH)
+
+    job.minute.on(minute)
+    job.hour.on(hour)
+    job.dow.on(*daylist)
+    job.enable()
+
+    cron.write()
+
+def main():
+    f = open_log_file()
+    check_inputs(f)
+    hour, minute, day = parse_arguments()
+    f.write('Job added successfully\n')
+
+
+if __name__ == "__main__":
+    main()
